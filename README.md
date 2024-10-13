@@ -1,8 +1,8 @@
-# Configurações
-## Configurar a String de Conexão
-- colocar a string de conexão local no appsettings > ConnectionStrings > DefaultConnection 
+# ConfiguraÃ§Ãµes
+## Configurar a String de ConexÃ£o
+- colocar a string de conexÃ£o local no appsettings > ConnectionStrings > DefaultConnection 
 
-## executar a query para criaçã do banco de dados
+## executar a query para criaÃ§Ã£o do banco de dados
 
 - CREATE DATABASE gerenciamentoTarefas;
 
