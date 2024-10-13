@@ -30,7 +30,6 @@ namespace gerenciamentoTarefas.API.Controllers
                 return BadRequest("Email já em uso.");
             }
 
-            // Aqui você pode adicionar lógica para criptografar a senha
             usuario.Senha = BCrypt.Net.BCrypt.HashPassword(usuario.Senha);
 
             _context.Usuarios.Add(usuario);
