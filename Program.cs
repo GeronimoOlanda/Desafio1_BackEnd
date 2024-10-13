@@ -6,11 +6,11 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configurações do banco de dados
+// ConfiguraÃ§Ãµes do banco de dados
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Configurações de autenticação JWT
+// ConfiguraÃ§Ãµes de autenticaÃ§Ã£o JWT
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -30,7 +30,6 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// Adicione CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAllOrigins",
@@ -51,7 +50,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// Use CORS antes da autenticação e autorização
 app.UseCors("AllowAllOrigins");
 
 app.UseHttpsRedirection();
