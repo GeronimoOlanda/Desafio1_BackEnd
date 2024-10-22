@@ -8,7 +8,7 @@ namespace gerenciamentoTarefas.API.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
         public DbSet<Tarefa> Tarefas { get; set; }
-        public DbSet<Usuario> Usuarios { get; set; } // Adicione esta linha
+        public DbSet<Usuario> Usuarios { get; set; } 
     }
 
 }
