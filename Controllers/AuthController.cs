@@ -1,5 +1,6 @@
 ﻿using gerenciamentoTarefas.API.Data;
 using gerenciamentoTarefas.API.Models;
+using gerenciamentoTarefas.API.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -27,10 +28,10 @@ namespace gerenciamentoTarefas.API.Controllers
         {
             if (await _context.Usuarios.AnyAsync(u => u.Email == usuario.Email))
             {
-                return BadRequest("Email já em uso.");
+                return BadRequest(Constantes.msgValidacaoEmailEmUso);
             }
 
-            // Aqui você pode adicionar lógica para criptografar a senha
+            //lógica para criptografar a senha
             usuario.Senha = BCrypt.Net.BCrypt.HashPassword(usuario.Senha);
 
             _context.Usuarios.Add(usuario);
@@ -45,14 +46,19 @@ namespace gerenciamentoTarefas.API.Controllers
             var usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.Email == login.Email);
             if (usuario == null || !BCrypt.Net.BCrypt.Verify(login.Senha, usuario.Senha))
             {
-                return Unauthorized("Email ou senha inválidos.");
+                return Unauthorized(Constantes.msgValidacaoEmailSenha);
             }
 
-            var token = GenerateJwtToken(usuario);
+            var token = GenerateJwtToken(usuario, Get_configuration());
             return Ok(new { Token = token });
         }
 
-        private string GenerateJwtToken(Usuario usuario)
+        private IConfiguration Get_configuration()
+        {
+            return _configuration;
+        }
+
+        private string GenerateJwtToken(Usuario usuario, IConfiguration _configuration)
         {
             var claims = new[]
             {
